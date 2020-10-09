@@ -12,8 +12,11 @@ const normalizePort = val => {
   }
   return false;
 };
+
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+const hostname = 'localhost';
 
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
@@ -35,7 +38,11 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app);
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Server launched !!! test');
+});
 
 server.on('error', errorHandler);
 server.on('listening', () => {
@@ -44,4 +51,6 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
