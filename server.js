@@ -1,5 +1,6 @@
 const http = require('http');
 const app = require('./app');
+const fs = require('fs');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -40,9 +41,18 @@ const errorHandler = error => {
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Server launched !!! test');
+  res.setHeader('Content-Type', 'text/html');
+  fs.readFile('./index.html', null, function (error, data) {
+    if (error) {
+      res.writeHead(404);
+      respone.write('file not found');
+    } else {
+      res.write(data);
+    }
+    res.end();
+  });
 });
+
 
 server.on('error', errorHandler);
 server.on('listening', () => {
