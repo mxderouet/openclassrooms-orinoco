@@ -8,9 +8,9 @@ const cameraSchema = mongoose.Schema({
   imageUrl: { type: String, required: true }
 });
 
-$.getURL('http://localhost:3000/api/cameras', function(data) {
-  console.log(data);
-});
+// $.getURL('http://localhost:3000/api/cameras', function(data) {
+//   console.log(data);
+// });
 
 
 module.exports = mongoose.model('Camera', cameraSchema);
